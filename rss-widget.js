@@ -15,6 +15,10 @@ async function loadRSS(url, containerId) {
             const pubDate = item.querySelector("pubDate")?.textContent || "Geen datum";
 
 
+            
+    // ✅ Verwijder <img> tags uit de beschrijving om dubbele afbeeldingen te voorkomen
+            description = description.replace(/<img[^>]*>/g, ""); 
+
    // ✅ OPHALEN VAN <media:content> (Voorkom dubbele afbeeldingen)
             let imageUrl = "";
             if (!imageUrl) { // Controleer of er al een afbeelding is toegevoegd
