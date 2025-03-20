@@ -15,14 +15,14 @@ async function loadRSS(url, containerId) {
             const pubDate = item.querySelector("pubDate")?.textContent || "Geen datum";
 
 
-  // ✅ OPHALEN VAN <media:content> (Houd rekening met namespace)
+   // ✅ OPHALEN VAN <media:content> (Voorkom dubbele afbeeldingen)
             let imageUrl = "";
-            const mediaContent = item.getElementsByTagName("media:content")[0]; // Probeer media:content te vinden
-            if (mediaContent) {
-                imageUrl = mediaContent.getAttribute("url"); // Haal de URL van de afbeelding op
-                console.log("Afbeelding gevonden:", imageUrl); // Debugging
-            } else {
-                console.log("Geen afbeelding gevonden voor", title);
+            if (!imageUrl) { // Controleer of er al een afbeelding is toegevoegd
+                const mediaContent = item.getElementsByTagName("media:content")[0];
+                if (mediaContent) {
+                    imageUrl = mediaContent.getAttribute("url");
+                    console.log("Afbeelding gevonden:", imageUrl); // Debugging
+                }
             }
             
         
