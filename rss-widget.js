@@ -15,11 +15,14 @@ async function loadRSS(url, containerId) {
             const pubDate = item.querySelector("pubDate")?.textContent || "Geen datum";
 
 
-            // Afbeelding ophalen uit <media:content>
+  // ✅ OPHALEN VAN <media:content> (Houd rekening met namespace)
             let imageUrl = "";
-            const mediaContent = item.querySelector("media\\:content, content");
+            const mediaContent = item.getElementsByTagName("media:content")[0]; // Probeer media:content te vinden
             if (mediaContent) {
-                imageUrl = mediaContent.getAttribute("url");
+                imageUrl = mediaContent.getAttribute("url"); // Haal de URL van de afbeelding op
+                console.log("Afbeelding gevonden:", imageUrl); // Debugging
+            } else {
+                console.log("Geen afbeelding gevonden voor", title);
             }
             
         
