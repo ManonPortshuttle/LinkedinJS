@@ -11,31 +11,24 @@ async function loadRSS(url, containerId) {
         items.forEach(item => {
             const title = item.querySelector("title").textContent;
             const link = item.querySelector("link").textContent;
-            const description = item.querySelector("description").textContent;
+            let description = item.querySelector("description").textContent;
             const pubDate = item.querySelector("pubDate")?.textContent || "Geen datum";
 
-
-            
-             // ✅ Verwijder <img> tags (inclusief volledige HTML-tags) uit de beschrijving
-            description = description.replace(/<img[^>]+>/gi, ""); 
+            // ✅ Verwijder <img> tags uit de beschrijving om dubbele afbeeldingen te voorkomen
+            description = description.replace(/<img[^>]*>/g, ""); 
 
             // ✅ OPHALEN VAN <media:content> (voorkom dubbele afbeeldingen)
             let imageUrl = "";
             const mediaContent = item.getElementsByTagName("media:content")[0];
             if (mediaContent) {
                 imageUrl = mediaContent.getAttribute("url");
-            }
-
-            // ✅ Voeg afbeelding *alleen toe als er nog geen andere afbeelding staat*
-            let imageHtml = "";
-            if (imageUrl && !description.includes("<img")) {
-                imageHtml = `<img src="${imageUrl}" style="max-width: 250px; height: auto; display: block; margin: 10px 0;">`;
+                console.log("Afbeelding gevonden:", imageUrl);
             }
 
             html += `
                 <div style="margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #ddd;">
                     <h3 style="margin:0;"><a href="${link}" target="_blank" style="color:#0077b5;">${title}</a></h3>
-                    ${imageHtml} <!-- ✅ Hier wordt de afbeelding maar 1x toegevoegd -->
+                    ${imageUrl ? `<img src="${imageUrl}" style="max-width: 250px; height: auto; display: block; margin: 10px 0;">` : ""}
                     <p>${description}</p>
                     <small>🗓 ${new Date(pubDate).toLocaleDateString("nl-NL")}</small>
                 </div>
@@ -48,10 +41,8 @@ async function loadRSS(url, containerId) {
         document.getElementById(containerId).innerHTML = "Fout bij laden van RSS-feed.";
         console.error("Fout bij laden RSS:", error);
     }
-
-   
 }
 
 // Haal de RSS-feed op en vernieuw elke 5 minuten
 loadRSS("https://raw.githubusercontent.com/ManonPortshuttle/LinkedinRSS/refs/heads/main/docs/PSRRSS.xml", "rss-widget-container");
-setInterval(() => loadRSS("https://raw.githubusercontent.com/ManonPortshuttle/LinkedinRSS/refs/heads/main/docs/PSRRSS.xml", "rss-widget-container"), 100000);
+setInterval(() => loadRSS("https://raw.githubusercontent.com/ManonPortshuttle/LinkedinRSS/refs/heads/main/docs/PSRRSS.xml", "rss-widget-container"), 300000);
