@@ -29,6 +29,14 @@ async function loadRSS(url, containerId) {
         document.getElementById(containerId).innerHTML = "Fout bij laden van RSS-feed.";
         console.error("Fout bij laden RSS:", error);
     }
+
+// Haal de RSS-feed in bij het laden van de pagina
+laadRSSFeed();
+
+// Haal elke 5 minuten opnieuw op (300000 ms = 5 minuten)
+setInterval(laadRSSFeed, 300000);  // Elke 5 minuten vernieuwen
+
+    
 }
 
 loadRSS("https://raw.githubusercontent.com/ManonPortshuttle/LinkedinRSS/refs/heads/main/docs/PSRRSS.xml", "rss-widget-container");
