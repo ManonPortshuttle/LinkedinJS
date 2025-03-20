@@ -1,5 +1,11 @@
 async function loadRSS(url, containerId) {
     try {
+
+   // Voeg een tijdstempel toe aan de URL voor cache-busting
+        const timestampedUrl = `${url}?t=${new Date().getTime()}`;
+
+        console.log("Probeer RSS-feed te laden van:", timestampedUrl); // Log de URL
+        
         const response = await fetch(url);
 
         // Controleer of de request succesvol was (status 200)
@@ -63,4 +69,4 @@ async function loadRSS(url, containerId) {
 
 // Haal de RSS-feed op en vernieuw elke 5 minuten
 loadRSS("https://raw.githubusercontent.com/ManonPortshuttle/LinkedinRSS/refs/heads/main/docs/PSRRSS.xml", "rss-widget-container");
-setInterval(() => loadRSS("https://raw.githubusercontent.com/ManonPortshuttle/LinkedinRSS/refs/heads/main/docs/PSRRSS.xml", "rss-widget-container"), 100000);
+setInterval(() => loadRSS("https://raw.githubusercontent.com/ManonPortshuttle/LinkedinRSS/refs/heads/main/docs/PSRRSS.xml", "rss-widget-container"), 50000);
