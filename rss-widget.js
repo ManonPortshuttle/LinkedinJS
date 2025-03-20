@@ -16,7 +16,7 @@ async function loadRSS(url, containerId) {
 
 
             
- // ✅ Verwijder <img> tags (inclusief volledige HTML-tags) uit de beschrijving
+       // ✅ Verwijder <img> tags (inclusief volledige HTML-tags) uit de beschrijving
             description = description.replace(/<img[^>]+>/gi, ""); 
 
             // ✅ OPHALEN VAN <media:content> (voorkom dubbele afbeeldingen)
@@ -26,12 +26,11 @@ async function loadRSS(url, containerId) {
                 imageUrl = mediaContent.getAttribute("url");
             }
 
-            // ✅ Voeg afbeelding *alleen toe als er nog geen andere afbeelding staat*
+            // ✅ Voeg afbeelding alleen toe als er geen <img> tag in de beschrijving zit
             let imageHtml = "";
-            if (imageUrl && !description.includes("<img")) {
+            if (imageUrl) {
                 imageHtml = `<img src="${imageUrl}" style="max-width: 250px; height: auto; display: block; margin: 10px 0;">`;
             }
-        
 
             html += `
                 <div style="margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #ddd;">
