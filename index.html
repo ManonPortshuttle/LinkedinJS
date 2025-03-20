@@ -3,10 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RSS Widget</title>
+    <title>Mijn Statische Posts</title>
+    <style>
+        /* Wat basis styling voor de pagina */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .post {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .post h2 {
+            margin-top: 0;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <div id="rss-widget-container">Laden...</div>
-    <script src="rss-widget.js"></script>
+
+    <h1>Mijn Statische LinkedIn Posts</h1>
+
+    <!-- Post 1 -->
+    <div class="post">
+        <h2>Post 1 Titel</h2>
+        <p>Dit is de inhoud van de eerste post. Dit zou een beschrijving kunnen zijn van een activiteit of gebeurtenis die je hebt geplaatst op LinkedIn.</p>
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7307326590642761729?collapsed=1" height="399" width="504" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+    </div>
+
+    <!-- Post 2 -->
+    <div class="post">
+        <h2>Post 2 Titel</h2>
+        <p>Dit is de inhoud van de tweede post. Hier kun je informatie plaatsen over wat je hebt gedeeld of gepost op LinkedIn.</p>
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:9876543210987654321"></iframe>
+    </div>
+
+    <!-- Post 3 -->
+    <div class="post">
+        <h2>Post 3 Titel</h2>
+        <p>Dit is de inhoud van de derde post. Dezelfde opzet, maar met een andere post en beschrijving.</p>
+        <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:activity:112233445566778899"></iframe>
+    </div>
+
 </body>
 </html>
