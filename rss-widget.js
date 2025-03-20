@@ -14,9 +14,20 @@ async function loadRSS(url, containerId) {
             const description = item.querySelector("description").textContent;
             const pubDate = item.querySelector("pubDate")?.textContent || "Geen datum";
 
+
+            // Afbeelding ophalen uit <media:content>
+            let imageUrl = "";
+            const mediaContent = item.querySelector("media\\:content, content");
+            if (mediaContent) {
+                imageUrl = mediaContent.getAttribute("url");
+            }
+            
+        
+
             html += `
                 <div style="margin-bottom: 10px; padding: 10px; border-bottom: 1px solid #ddd;">
                     <h3 style="margin:0;"><a href="${link}" target="_blank" style="color:#0077b5;">${title}</a></h3>
+                    ${imageUrl ? `<img src="${imageUrl}" style="max-width: 120px; height: auto; display: block; margin: 10px 0;">` : ""}
                     <p>${description}</p>
                     <small>🗓 ${new Date(pubDate).toLocaleDateString("nl-NL")}</small>
                 </div>
