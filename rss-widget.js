@@ -34,7 +34,7 @@ async function loadRSS(url, containerId) {
 laadRSSFeed();
 
 // Haal elke 5 minuten opnieuw op (300000 ms = 5 minuten)
-setInterval(laadRSSFeed, 300000);  // Elke 5 minuten vernieuwen
+setInterval(laadRSSFeed, 10000);  // Elke 5 minuten vernieuwen
 
     
 }
