@@ -16,19 +16,21 @@ async function loadRSS(url, containerId) {
 
 
             
-    // ✅ Verwijder <img> tags uit de beschrijving om dubbele afbeeldingen te voorkomen
-            description = description.replace(/<img[^>]*>/g, ""); 
+ // ✅ Verwijder <img> tags (inclusief volledige HTML-tags) uit de beschrijving
+            description = description.replace(/<img[^>]+>/gi, ""); 
 
-   // ✅ OPHALEN VAN <media:content> (Voorkom dubbele afbeeldingen)
+            // ✅ OPHALEN VAN <media:content> (voorkom dubbele afbeeldingen)
             let imageUrl = "";
-            if (!imageUrl) { // Controleer of er al een afbeelding is toegevoegd
-                const mediaContent = item.getElementsByTagName("media:content")[0];
-                if (mediaContent) {
-                    imageUrl = mediaContent.getAttribute("url");
-                    console.log("Afbeelding gevonden:", imageUrl); // Debugging
-                }
+            const mediaContent = item.getElementsByTagName("media:content")[0];
+            if (mediaContent) {
+                imageUrl = mediaContent.getAttribute("url");
             }
-            
+
+            // ✅ Voeg afbeelding *alleen toe als er nog geen andere afbeelding staat*
+            let imageHtml = "";
+            if (imageUrl && !description.includes("<img")) {
+                imageHtml = `<img src="${imageUrl}" style="max-width: 250px; height: auto; display: block; margin: 10px 0;">`;
+            }
         
 
             html += `
